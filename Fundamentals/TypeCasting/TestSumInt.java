@@ -1,7 +1,7 @@
-class TestSumInteger {
+class TestSumInt {
 	public static void main(String[] args) {
 		long start = System.currentTimeMillis();
-		Integer sum = 0;
+		int sum = 0;
 		for (int i = 0; i < Integer.MAX_VALUE; i++) {
 			sum += i;
 		}
