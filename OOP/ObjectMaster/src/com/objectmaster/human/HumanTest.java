@@ -1,4 +1,4 @@
-package com.zookeeper.human;
+package com.objectmaster.human;
 
 public class HumanTest {
 

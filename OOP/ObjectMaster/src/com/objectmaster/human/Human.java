@@ -1,4 +1,4 @@
-package com.zookeeper.human;
+package com.objectmaster.human;
 
 public class Human {
 	protected int strength, stealth, intelligence, health;
@@ -8,5 +8,6 @@ public class Human {
 	}
 	public void attack(Human human) {
 		health -= human.strength;
+		System.out.println("Attacked! Health is now "+health+".");
 	}
 }
