@@ -14,12 +14,28 @@ public abstract class Phone {
     // abstract method. This method will be implemented by the subclasses
     public abstract void displayInfo();
     // getters and setters removed for brevity. Please implement them yourself
-    public abstract String getVersionNumber();
-    public abstract int getBatteryPercentage();
-    public abstract String getCarrier();
-    public abstract String getRingTone();
-    public abstract void setVersionNumber(String versionNumber);
-    public abstract void setBatteryPercentage(int batteryPercentage);
-    public abstract void setCarrier(String carrier);
-    public abstract void setRingTone(String ringTone);
+    public String getVersionNumber() {
+    	return versionNumber;
+    }
+    public int getBatteryPercentage() {
+    	return batteryPercentage;
+    }
+    public String getCarrier() {
+    	return carrier;
+    }
+    public String getRingTone() {
+    	return ringTone;
+    }
+    public void setVersionNumber(String versionNumber) {
+    	this.versionNumber = versionNumber;
+    }
+    public void setBatteryPercentage(int batteryPercentage) {
+    	this.batteryPercentage = batteryPercentage;
+    }
+    public void setCarrier(String carrier) {
+    	this.carrier = carrier;
+    }
+    public void setRingTone(String ringTone) {
+    	this.ringTone = ringTone;
+    }
 }
