@@ -20,6 +20,40 @@ public class DLLTest {
         dll.push(n6);
         
         dll.printValuesForward();
-	}
+        dll.printValuesBackwards();
+        
+        System.out.println("This DLL has "+dll.size()+" nodes.");
+        
+        System.out.println(dll.pop());
+        System.out.println(dll.pop());
+        System.out.println(dll.pop());
+
+        dll.contains(10);
+        dll.contains(20);
+        
+        System.out.println("This DLL has "+dll.size()+" nodes.");
+        
+        dll.printValuesForward();
+        
+        System.out.println(dll.pop());
+        System.out.println(dll.pop());
+        System.out.println(dll.pop());
+        System.out.println(dll.pop());
+        System.out.println(dll.pop());
+        System.out.println(dll.pop());
+        
+        dll.contains(10);
+        dll.contains(20);
+
+        System.out.println("This DLL has "+dll.size()+" nodes.");
+
+        dll.push(n5);
+        dll.push(n6);
+        
+        dll.printValuesForward();
+
+        System.out.println("This DLL has "+dll.size()+" nodes.");
+
+}
 
 }
