@@ -10,6 +10,14 @@ public class TrieTest {
         trie.insertWord("chip");
         trie.insertWord("trie");
         trie.insertWord("try");
+        trie.isPrefixValid("car");
+        trie.isPrefixValid("ca");
+        trie.isPrefixValid("carrot");
+        trie.isWordValue("trie");
+        trie.isWordValue("ca");
+        trie.isWordValue("chip");
+        trie.isWordValue("chipper");
+        trie.printAllKeys();
 	}
 
 }
