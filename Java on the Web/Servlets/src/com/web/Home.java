@@ -28,11 +28,11 @@ public class Home extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.write("<h1>Hello World</h1>");
+        // get the value for the query parameter
+        String userName = request.getParameter("name");
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.write("<h1>Hello World, from " + userName + "</h1>");
 	}
 
 	/**
