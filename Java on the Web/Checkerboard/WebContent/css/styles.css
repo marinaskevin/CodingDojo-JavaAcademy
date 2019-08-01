@@ -1,0 +1,32 @@
+@charset "ISO-8859-1";
+
+* {
+	font-family: Arial;
+}
+
+h1 {
+	text-align: center;
+}
+
+span {
+	display: inline-block;
+	height: 50px;
+	width: 50px;
+}
+
+.color1 {
+	background-color: #FF0000;
+}
+
+.color2 {
+	background-color: #000000;
+}
+
+.container {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
