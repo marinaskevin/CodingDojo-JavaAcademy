@@ -1,0 +1,22 @@
+@charset "ISO-8859-1";
+
+* {
+	font-family: "Comic Sans MS";	
+	margin: 0;
+}
+
+.container {
+	height: calc(100vh);
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	align-content: center;
+}
+
+.date {
+	color: blue;
+}
+
+.time {
+	color: green;
+}
