@@ -8,7 +8,6 @@
 <title>Home Page</title>
 </head>
 <body>
-	<h1>Hello World</h1>
-	<h3><c:out value="${2+2}"/></h3>
+	<h1>Hello, <c:out value="${dojoName}"/></h1>
 </body>
 </html>
