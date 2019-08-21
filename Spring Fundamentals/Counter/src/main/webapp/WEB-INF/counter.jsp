@@ -10,5 +10,8 @@
 <body>
 	<h1>You have visited <a href="http://localhost:8080/">http://localhost:8080/</a> <c:out value="${visits}"/> times.</h1>
 	<h1><a href="http://localhost:8080/">Test another visit?</a></h1>
+	<form action="/reset" method="get">
+		<input type="submit" value="Reset counter">
+	</form>
 </body>
 </html>
