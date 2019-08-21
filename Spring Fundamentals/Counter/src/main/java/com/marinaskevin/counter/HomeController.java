@@ -31,4 +31,21 @@ public class HomeController {
 		return "counter.jsp";
 	}
 	
+	@RequestMapping("/doublecount")
+	public String doublecount(HttpSession session) {
+		Integer count = (Integer)session.getAttribute("count");
+		if(count == null)
+		{
+			count = 0;
+		}
+		session.setAttribute("count", count+2);
+		return "doublecount.jsp";		
+	}
+	
+	@RequestMapping("/reset")
+	public String reset(HttpSession session) {
+		session.setAttribute("count", 0);
+		return "reset.jsp";		
+	}
+
 }
