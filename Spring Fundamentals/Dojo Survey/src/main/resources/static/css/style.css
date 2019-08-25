@@ -1,0 +1,28 @@
+@charset "ISO-8859-1";
+
+body {
+	background-color: #BFF;
+	padding: 100px;
+}
+
+.container {
+	background-color: #FFB;
+	width: calc(100vw - 250px);
+	padding: 50px;
+	border-width: 1px;
+	border-radius: 25px;
+	box-shadow: 2px 2px 4px #000;
+}
+
+td:first-child {
+	text-align: right;
+}
+
+h1 {
+	text-align: center;
+	text-decoration: underline;
+}
+
+.table {
+	table-layout: fixed;
+}
