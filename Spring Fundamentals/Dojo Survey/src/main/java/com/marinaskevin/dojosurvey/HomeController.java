@@ -18,6 +18,10 @@ public class HomeController {
 	
 	@RequestMapping(value="/submit", method=RequestMethod.POST)
 	public String submit(HttpSession session, @RequestParam(value="name") String name, @RequestParam(value="location") String location, @RequestParam(value="language") String language, @RequestParam(value="comment") String comment) {
+		if(language.equals("Java"))
+		{
+			return "redirect:/java";
+		}
 		session.setAttribute("name",name);
 		session.setAttribute("location",location);
 		session.setAttribute("language",language);
@@ -33,6 +37,11 @@ public class HomeController {
 		model.addAttribute("language",session.getAttribute("language"));
 		model.addAttribute("comment",session.getAttribute("comment"));
 		return "result.jsp";
+	}
+	
+	@RequestMapping("/java")
+	public String java() {
+		return "java.jsp";
 	}
 	
 }
