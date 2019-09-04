@@ -34,4 +34,17 @@ public class BookService {
             return null;
         }
     }
+    // updates a book
+    public Book updateBook(Long id, String title, String desc, String lang, Integer pages) {
+		Book book = findBook(id);
+		book.setTitle(title);
+		book.setDescription(desc);
+		book.setLanguage(lang);
+		book.setNumberOfPages(pages);
+		return bookRepository.save(book);
+    }
+    // deletes a book
+    public void deleteBook(Long id) {
+		bookRepository.deleteById(id);
+    }
 }
