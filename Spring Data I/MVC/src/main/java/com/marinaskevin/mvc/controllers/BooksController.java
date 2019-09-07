@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,9 +18,11 @@ import com.marinaskevin.mvc.services.BookService;
 @Controller
 public class BooksController {
     private final BookService bookService;
+    private final BooksApi booksApi;
     
-    public BooksController(BookService bookService) {
+    public BooksController(BookService bookService, BooksApi booksApi) {
         this.bookService = bookService;
+        this.booksApi = booksApi;
     }
     
     @RequestMapping("/books")
@@ -27,6 +30,13 @@ public class BooksController {
         List<Book> books = bookService.allBooks();
         model.addAttribute("books", books);
         return "/books/index.jsp";
+    }
+    
+    @RequestMapping("/books/{id}")
+    public String show(@PathVariable("id") Long id, Model model) {
+    	Book book = booksApi.show(id);
+    	model.addAttribute("book", book);
+    	return "/books/show.jsp";
     }
     
     @RequestMapping("/books/new")
