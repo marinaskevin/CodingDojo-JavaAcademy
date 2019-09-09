@@ -43,6 +43,9 @@ public class BookService {
 		book.setNumberOfPages(pages);
 		return bookRepository.save(book);
     }
+    public Book updateBook(Book book) {
+		return bookRepository.save(book);
+    }
     // deletes a book
     public void deleteBook(Long id) {
 		bookRepository.deleteById(id);
