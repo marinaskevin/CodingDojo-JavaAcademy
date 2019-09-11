@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +13,15 @@
 </head>
 <body>
 	<div class="jumbotron container">
-		<p style="text-align: right"><a href="/languages/<c:out value="${language.id}"/>/delete" class="btn btn-danger">Delete</a>&emsp;<a href="/languages" class="btn btn-info">Dashboard</a></p>
+		<div class="text-right pt-3 pb-3">
+			<form:form action="/languages/${language.id}" method="post" class="d-inline">
+				<input type="hidden" name="_method" value="delete">
+				<input type="submit" value="Delete" class="btn btn-danger">
+			</form:form>
+			&emsp;<a href="/languages" class="btn btn-info">Dashboard</a>
+		</div>
 		<form:form action="/languages/${language.id}" method="post" modelAttribute="language">
+			<input type="hidden" name="_method" value="put">
 			<div class="form-group row">
 				<form:label path="name" class="col-sm-2 col-form-label">Name</form:label>
 				<div class="col-sm-10">

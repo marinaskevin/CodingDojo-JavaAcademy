@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -21,7 +22,7 @@ public class Language {
 	private String name;
 	@Size(min = 2, max = 20)
 	private String creator;
-	@Size(min = 1)
+	@NotBlank
 	private String currentVersion;
 	private Date createdAt;
 	private Date updatedAt;
