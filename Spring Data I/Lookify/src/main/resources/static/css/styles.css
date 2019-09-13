@@ -1,0 +1,12 @@
+@charset "ISO-8859-1";
+
+body {
+	padding: 40px;
+}
+
+.jumbotron {
+	border-top-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background-image: linear-gradient(#FFFF00,#00FFFF);
+	box-shadow: 1px 1px 1px #00000
+}
