@@ -34,13 +34,15 @@ public class License {
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="person_id")
     private Person person;
+    private static Integer numLicenses = 0;
 
     public License() {
         
     }
     
-	public License(String number, Date expirationDate, String state, Person person) {
-		this.number = number;
+	public License(Date expirationDate, String state, Person person) {
+		this.setNumLicenses(this.getNumLicenses() + 1);
+		this.number = String.format("%08d", this.getNumLicenses());
 		this.expirationDate = expirationDate;
 		this.state = state;
 		this.person = person;
@@ -87,6 +89,12 @@ public class License {
 	}
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	public Integer getNumLicenses() {
+		return numLicenses;
+	}
+	public void setNumLicenses(Integer numLicenses) {
+		License.numLicenses = numLicenses;
 	}
 
 	@PrePersist
