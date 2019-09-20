@@ -64,7 +64,7 @@ public class RelationshipsController {
 			return "/relationships/new_person.jsp";
 		} else {
 			personService.createPerson(person);
-			return "redirect:/persons/new";
+			return "redirect:/persons/"+person.getId();
 		}
 	}
 	

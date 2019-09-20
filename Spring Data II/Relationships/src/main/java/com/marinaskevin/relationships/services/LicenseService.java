@@ -22,6 +22,8 @@ public class LicenseService {
 	}
 
 	public License createLicense(License l) {
+		String number = String.format("%06d", l.getPerson().getId());
+		l.setNumber(number);
 		return licenseRepository.save(l);
 	}
 	
