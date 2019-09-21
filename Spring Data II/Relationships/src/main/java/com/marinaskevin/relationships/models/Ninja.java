@@ -38,6 +38,13 @@ public class Ninja {
         
     }
 
+	public Ninja(String firstName, String lastName, int age, Dojo dojo) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.dojo = dojo;
+	}
+
 	public Long getId() {
 		return id;
 	}

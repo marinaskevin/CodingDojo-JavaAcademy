@@ -36,6 +36,10 @@ public class Dojo {
         
     }
 
+	public Dojo(String name) {
+		this.name = name;
+	}
+
 	public Long getId() {
 		return id;
 	}
