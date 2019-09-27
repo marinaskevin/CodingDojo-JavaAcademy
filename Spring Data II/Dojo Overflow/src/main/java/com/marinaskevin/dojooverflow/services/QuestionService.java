@@ -23,6 +23,10 @@ public class QuestionService {
 	public List<Question> tagQuestions(Integer id) {
 		return this.questionRepository.findAllByTags(id);
 	}
+	
+	public Question createQuestion(Question q) {
+		return this.questionRepository.save(q);
+	}
 
 	public Question findQuestion(Integer id) {
 		Optional<Question> optionalQuestion = this.questionRepository.findById(id);
