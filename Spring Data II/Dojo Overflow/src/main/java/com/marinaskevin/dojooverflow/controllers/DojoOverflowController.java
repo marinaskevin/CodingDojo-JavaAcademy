@@ -1,5 +1,6 @@
 package com.marinaskevin.dojooverflow.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,7 @@ public class DojoOverflowController {
 		Question question = new Question();
 		question.setQuestion(questionString);
 		String[] tagString = tagInput.split(",");
-		List<Tag> tags = new List<Tag>();
+		List<Tag> tags = new ArrayList<Tag>();
 		for(int i = 0; i<tagString.length; i++)
 		{
 			Tag tag = new Tag(tagString[i]);
