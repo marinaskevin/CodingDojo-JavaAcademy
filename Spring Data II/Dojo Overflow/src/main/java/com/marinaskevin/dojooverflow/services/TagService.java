@@ -19,9 +19,17 @@ public class TagService {
 	public List<Tag> allTags() {
 		return this.tagRepository.findAll();
 	}
-
+	
 	public List<Tag> questionTags(Integer id) {
 		return this.tagRepository.findAllByQuestions(id);
+	}
+	
+	public Tag findTagMatch(String s) {
+		return this.tagRepository.findBySubject(s);
+	}
+
+	public Tag createTag(Tag t) {
+		return this.tagRepository.save(t);
 	}
 
 	public Tag findTag(Integer id) {

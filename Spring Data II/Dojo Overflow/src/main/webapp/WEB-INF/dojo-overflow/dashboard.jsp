@@ -22,16 +22,17 @@
 			<tbody>
 			<c:forEach items="${questions}" var="question">
 				<tr>
-					<td><c:out value="${question.question}"/></td>
+					<td><a href="/questions/${question.id}"><c:out value="${question.question}"/></a></td>
 					<td>
 					<c:forEach items="${question.tags}" var="tag" varStatus="status">
-						<c:out value="${tag.subject}"/><c:if test="${status.count != question.tags.size()-1}">, </c:if>
+						<c:out value="${tag.subject}"/><c:if test="${status.count != question.tags.size()}">, </c:if>
 					</c:forEach>
 					</td>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
+		<div class="text-right"><a href="/questions/new">New Question</a></div>
 	</div>
 </body>
 </html>

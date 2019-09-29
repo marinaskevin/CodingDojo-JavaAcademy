@@ -15,15 +15,18 @@ import com.marinaskevin.dojooverflow.models.Question;
 import com.marinaskevin.dojooverflow.models.Tag;
 import com.marinaskevin.dojooverflow.services.AnswerService;
 import com.marinaskevin.dojooverflow.services.QuestionService;
+import com.marinaskevin.dojooverflow.services.TagService;
 
 @Controller
 public class DojoOverflowController {
 	public final QuestionService questionService;
 	public final AnswerService answerService;
+	public final TagService tagService;
 
-	public DojoOverflowController(QuestionService questionService, AnswerService answerService) {
+	public DojoOverflowController(QuestionService questionService, AnswerService answerService, TagService tagService) {
 		this.questionService = questionService;
 		this.answerService = answerService;
+		this.tagService = tagService;
 	}
 
 	@RequestMapping("/questions")
@@ -47,14 +50,18 @@ public class DojoOverflowController {
 		List<Tag> tags = new ArrayList<Tag>();
 		for(int i = 0; i<tagString.length; i++)
 		{
-			Tag tag = new Tag(tagString[i]);
+			String newTag = tagString[i].trim();
+			Tag tag = tagService.findTagMatch(newTag);
+			if(tag == null) {
+				tag = new Tag(newTag);
+				tagService.createTag(tag);
+			}
 			tags.add(tag);
 		}
 		question.setTags(tags);
 		questionService.createQuestion(question);
 		return "redirect:/questions/"+question.getId();
 	}
-	
 	
 	@RequestMapping("/questions/{id}")
 	public String showQuestion(@PathVariable("id") Integer id, Model model) {
@@ -63,5 +70,14 @@ public class DojoOverflowController {
 		model.addAttribute("question", question);
 		model.addAttribute("answers",answers);
 		return "/dojo-overflow/show_question.jsp";
+	}
+
+	@RequestMapping(value="/answers", method=RequestMethod.POST)
+	public String createAnswer(@RequestParam("answer") String answerString, @RequestParam("id") Integer id) {
+		Question question = questionService.findQuestion(id);
+		Answer answer = new Answer(answerString,question);
+		answerService.createAnswer(answer);
+		question.getAnswers().add(answer);
+		return "redirect:/questions/"+question.getId();
 	}
 }
