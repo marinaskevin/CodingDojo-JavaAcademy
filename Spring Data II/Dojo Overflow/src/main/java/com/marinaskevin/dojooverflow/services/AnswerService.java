@@ -23,6 +23,10 @@ public class AnswerService {
 	public List<Answer> questionAnswers(Integer id) {
 		return this.answerRepository.findAllByQuestionId(id);
 	}
+	
+	public Answer createAnswer(Answer a) {
+		return this.answerRepository.save(a);
+	}
 
 	public Answer findAnswer(Integer id) {
 		Optional<Answer> optionalAnswer = this.answerRepository.findById(id);

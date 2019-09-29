@@ -11,4 +11,5 @@ import com.marinaskevin.dojooverflow.models.Tag;
 public interface TagRepository extends CrudRepository<Tag, Integer> {
 	List<Tag> findAll();
 	List<Tag> findAllByQuestions(Integer id);
+	Tag findBySubject(String s);
 }
