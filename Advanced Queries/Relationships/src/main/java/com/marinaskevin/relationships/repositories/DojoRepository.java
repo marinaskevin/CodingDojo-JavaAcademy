@@ -53,4 +53,12 @@ public interface DojoRepository extends CrudRepository<Dojo, Long> {
     // get one dojo
     //@Query(value="SELECT * FROM dojos WHERE id = ?1", nativeQuery=true)
     //Dojo getDojoWhereId(Long id);
+
+    // inner join retrieving only the dojos
+    @Query("SELECT d FROM Dojo d JOIN d.ninjas n")
+    List<Dojo> joinDojosAndNinjas();
+
+    // inner join retrieving dojos and ninjas
+    @Query("SELECT d, n FROM Dojo d JOIN d.ninjas n")
+    List<Object[]> joinDojosAndNinjas2();
 }
