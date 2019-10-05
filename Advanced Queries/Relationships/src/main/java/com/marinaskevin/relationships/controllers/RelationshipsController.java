@@ -132,6 +132,13 @@ public class RelationshipsController {
 		}
 	}
 	
+	@RequestMapping("/ninjas")
+	public String showNinjas(Model model) {
+		List<Object[]> ninjas = dojoService.joinDojosAndNinjas();
+		model.addAttribute("ninjas",ninjas);
+		return "/relationships/show_ninjas.jsp";
+	}
+	
 	@RequestMapping("/dojos/{id}")
 	public String showNinjas(@PathVariable("id") Long id, Model model) {
 		Dojo dojo = dojoService.findDojo(id);

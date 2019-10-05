@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.marinaskevin.relationships.models.Dojo;
+import com.marinaskevin.relationships.models.Ninja;
 import com.marinaskevin.relationships.repositories.DojoRepository;
 
 @Service
@@ -18,6 +19,17 @@ public class DojoService {
 	
 	public List<Dojo> allDojos() {
 		return dojoRepository.findAll();
+	}
+	
+	public List<Object[]> joinDojosAndNinjas() {
+		List<Object[]> table = dojoRepository.joinDojosAndNinjas2();
+		for(Object[] row : table) {
+		    Dojo dojo = (Dojo) row[0];
+		    Ninja ninja = (Ninja) row[1];
+		    System.out.println(dojo.getName());
+		    System.out.println(ninja.getFirstName());
+		}
+		return table;
 	}
 	
 	public Dojo createDojo(Dojo d) {
