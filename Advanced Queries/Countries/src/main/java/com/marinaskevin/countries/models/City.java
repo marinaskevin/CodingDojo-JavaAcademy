@@ -16,7 +16,7 @@ public class City {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(length = 11)
-	private int id;
+	private Integer id;
 	@Column(length = 35)
 	private String name;
 	@Column(length = 3)
@@ -24,7 +24,7 @@ public class City {
 	@Column(length = 20)
 	private String district;
 	@Column(length = 11)
-	private int population;
+	private Integer population;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "country_id")
 	private Country country;
@@ -33,7 +33,7 @@ public class City {
 		
 	}
 
-	public City(String name, String country_code, String district, int population, Country country) {
+	public City(String name, String country_code, String district, Integer population, Country country) {
 		this.name = name;
 		this.country_code = country_code;
 		this.district = district;
@@ -41,11 +41,11 @@ public class City {
 		this.country = country;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -73,11 +73,11 @@ public class City {
 		this.district = district;
 	}
 
-	public int getPopulation() {
+	public Integer getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(int population) {
+	public void setPopulation(Integer population) {
 		this.population = population;
 	}
 

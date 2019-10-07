@@ -16,14 +16,14 @@ public class Language {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(length = 11)
-	private int id;
+	private Integer id;
 	@Column(length = 3)
 	private String country_code;
 	@Column(length = 30)
 	private String language;
 	private String is_official;
 	@Column(precision = 4, scale = 1)
-	private float percentage;
+	private Float percentage;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "country_id")
 	private Country country;
@@ -32,8 +32,8 @@ public class Language {
 
 	}
 
-	public Language(String country_code, String language, String is_official, float percentage,
-		Country country) {
+	public Language(String country_code, String language, String is_official, Float percentage,
+			Country country) {
 		this.country_code = country_code;
 		this.language = language;
 		this.is_official = is_official;
@@ -41,11 +41,11 @@ public class Language {
 		this.country = country;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -73,11 +73,11 @@ public class Language {
 		this.is_official = is_official;
 	}
 
-	public float getPercentage() {
+	public Float getPercentage() {
 		return percentage;
 	}
 
-	public void setPercentage(float percentage) {
+	public void setPercentage(Float percentage) {
 		this.percentage = percentage;
 	}
 
@@ -87,5 +87,5 @@ public class Language {
 
 	public void setCountry(Country country) {
 		this.country = country;
-	}
+	}	
 }
