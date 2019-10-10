@@ -26,6 +26,13 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+    
+    // verify password
+    public boolean verifyPassword(String email,String password) {
+    	User user = userRepository.findByEmail(email);
+    	if(user == null) return false;
+    	return BCrypt.checkpw(password, user.getPassword());
+    }
 
     // find user by id
     public User findUserById(Long id) {
