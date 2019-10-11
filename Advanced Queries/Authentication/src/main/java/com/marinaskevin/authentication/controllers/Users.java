@@ -14,20 +14,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.marinaskevin.authentication.models.User;
 import com.marinaskevin.authentication.services.UserService;
+import com.marinaskevin.authentication.validator.UserValidator;
 
 // imports removed for brevity
 @Controller
 public class Users {
     private final UserService userService;
+    private final UserValidator userValidator;
     
-    public Users(UserService userService) {
+    public Users(UserService userService, UserValidator userValidator) {
         this.userService = userService;
+        this.userValidator = userValidator;
     }
     
     @RequestMapping("/registration")
     public String registerForm(@ModelAttribute("user") User user) {
         return "authentication/registrationPage.jsp";
     }
+    
     @RequestMapping("/login")
     public String login() {
         return "authentication/loginPage.jsp";
@@ -35,13 +39,13 @@ public class Users {
     
     @RequestMapping(value="/registration", method=RequestMethod.POST)
     public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
+        userValidator.validate(user, result);
     	if(result.hasErrors()) {
     		return "authentication/registrationPage.jsp";
-    	} else {
-    		User u = userService.registerUser(user);
-    		session.setAttribute("userId", u.getId());
-    		return "redirect:/home";
     	}
+		User u = userService.registerUser(user);
+		session.setAttribute("userId", u.getId());
+		return "redirect:/home";
     }
     
     @RequestMapping(value="/login", method=RequestMethod.POST)
@@ -50,11 +54,9 @@ public class Users {
     	if(userService.verifyPassword(email, password)) {
     		session.setAttribute("userId", user.getId());
     		return "redirect:/home";
-    	} else {
-    		session.removeAttribute("error");
-    		redirectAttributes.addFlashAttribute("error", "Invalid user or password");
-    		return "redirect:/login";
     	}
+		redirectAttributes.addFlashAttribute("error", "Invalid user or password");
+		return "redirect:/login";
     }
     
     @RequestMapping("/home")
@@ -62,11 +64,10 @@ public class Users {
     	Long userId = (Long)session.getAttribute("userId");
     	if(userId == null) {
     		return "redirect:/login";
-    	} else {
-    		User user = userService.findUserById(userId);
-    		model.addAttribute("user",user);
-    		return "/authentication/homePage.jsp";
     	}
+		User user = userService.findUserById(userId);
+		model.addAttribute("user",user);
+		return "/authentication/homePage.jsp";
     }
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
