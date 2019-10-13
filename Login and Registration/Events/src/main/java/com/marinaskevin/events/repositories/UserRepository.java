@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.marinaskevin.events.models.Event;
+import com.marinaskevin.events.models.User;
 
 @Repository
-public interface EventRepository extends CrudRepository<Event, Long> {
-	List<Event> findAll();
+public interface UserRepository extends CrudRepository<User, Long> {
+	List<User> findAll();
+	User findByEmail(String email);
 }
