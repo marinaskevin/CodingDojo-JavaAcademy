@@ -12,9 +12,9 @@ import com.marinaskevin.events.models.Event;
 public interface EventRepository extends CrudRepository<Event, Long> {
 	List<Event> findAll();
 
-	@Query("SELECT e FROM Event e WHERE e.state = state")
+	@Query("SELECT e FROM Event e WHERE e.state = ?1")
 	List<Event> findEventsInState(String state);
 
-	@Query("SELECT e FROM Event e WHERE e.state = state")
+	@Query("SELECT e FROM Event e WHERE e.state != ?1")
 	List<Event> findEventsNotInState(String state);
 }
