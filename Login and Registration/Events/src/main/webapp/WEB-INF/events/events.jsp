@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,13 +31,13 @@
 			<c:forEach items="${eventsInState}" var="event">
 				<tr>
 					<td><a href="/events/${event.id}"><c:out value="${event.name}"/></a></td>
-					<td><c:out value="${event.date}"/></td>
+					<td><fmt:formatDate value="${event.date}" pattern="MMMM d, yyyy"/></td>
 					<td><c:out value="${event.location}"/></td>
-					<td><c:out value="${event.host}"/></td>
+					<td><c:out value="${event.host.firstName} ${event.host.lastName}"/></td>
 					<td>
-						<span id="join" class="<c:if test="${!event.attendees.contains(user)}">d-none</c:if>"><a href="/events/${event.id}/join">Join</a></span>
-						<span id="joining" class="<c:if test="${event.attendees.contains(user)}">d-none</c:if>">Joining <a href="/events/${event.id}/unjoin">Cancel</a></span>
-						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Delete</a> <a href="/events/${event.id}/delete">Delete</a></c:if>
+						<span id="join" class="<c:if test="${event.attendees.contains(user)}">hidden</c:if>"><a href="/events/${event.id}/join">Join</a></span>
+						<span id="joining" class="<c:if test="${!event.attendees.contains(user)}">hidden</c:if>">Joining <a href="/events/${event.id}/unjoin">Cancel</a></span>
+						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Edit</a> <a href="/events/${event.id}/delete">Delete</a></c:if>
 					</td>
 				</tr>
 			</c:forEach>
@@ -55,17 +56,17 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${eventsOutOfState}" var="event">
+			<c:forEach items="${eventsNotInState}" var="event">
 				<tr>
 					<td><a href="/events/${event.id}"><c:out value="${event.name}"/></a></td>
-					<td><c:out value="${event.date}"/></td>
+					<td><fmt:formatDate value="${event.date}" pattern="MMMM d, yyyy"/></td>
 					<td><c:out value="${event.location}"/></td>
 					<td><c:out value="${event.state}"/></td>
-					<td><c:out value="${event.host}"/></td>
+					<td><c:out value="${event.host.firstName} ${event.host.lastName}"/></td>
 					<td>
-						<span id="join" class="<c:if test="${!event.attendees.contains(user)}">d-none</c:if>"><a href="/events/${event.id}/join">Join</a></span>
-						<span id="joining" class="<c:if test="${event.attendees.contains(user)}">d-none</c:if>">Joining <a href="/events/${event.id}/unjoin">Cancel</a></span>
-						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Delete</a> <a href="/events/${event.id}/delete">Delete</a></c:if>
+						<span id="join" class="<c:if test="${event.attendees.contains(user)}">hidden</c:if>"><a href="/events/${event.id}/join">Join</a></span>
+						<span id="joining" class="<c:if test="${!event.attendees.contains(user)}">hidden</c:if>">Joining <a href="/events/${event.id}/unjoin">Cancel</a></span>
+						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Edit</a> <a href="/events/${event.id}/delete">Delete</a></c:if>
 					</td>
 				</tr>
 			</c:forEach>
@@ -96,6 +97,7 @@
 				<div class="col-sm-2">
 					<form:input path="state" class="form-control"/>
 					<form:label path="state" class="d-none"/>
+					<form:errors path="state"/>
 				</div>
 			</div>
 			<div class="row text-right" style="padding: 10px">

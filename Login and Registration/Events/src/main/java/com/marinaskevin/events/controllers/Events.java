@@ -48,7 +48,7 @@ public class Events {
 		List<Event> eventsNotInState = eventService.findEventsNotInState((String)user.getState());
 		model.addAttribute("user", user);
 		model.addAttribute("eventsInState", eventsInState);
-		model.addAttribute("eventsNonInState", eventsNotInState);
+		model.addAttribute("eventsNotInState", eventsNotInState);
 		model.addAttribute("event", new Event());
 		return "events/events.jsp";
 	}
@@ -97,10 +97,12 @@ public class Events {
 	}
 	
 	@RequestMapping(value="/events", method=RequestMethod.POST)
-	public String newEvent(@Valid @ModelAttribute("event") Event event, BindingResult result) {
+	public String newEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, HttpSession session) {
 		if(result.hasErrors()) {
 			return "redirect:/events";
 		} else {
+			User user = eventService.findUserById((Long)session.getAttribute("userId"));
+			event.setHost(user);
 			eventService.createEvent(event);
 			return "redirect:/events";
 		}
