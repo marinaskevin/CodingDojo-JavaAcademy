@@ -1,12 +1,107 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>Events</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 </head>
 <body>
-
+	<div class="jumbotron container">
+		<div class="row" style="padding: 10px">
+			<div class="sm-col-6"><h1>Welcome, <c:out value="${user.firstName} ${user.lastName}"/></h1></div>
+			<div class="sm-col-6 text-right"><a href="/logout" class="btn btn-primary">Logout</a></div>
+		</div>
+		<h3>Here are some of the events in your state:</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date</th>
+					<th>Location</th>
+					<th>Host</th>
+					<th>Action/Status</th>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach items="${eventsInState}" var="event">
+				<tr>
+					<td><a href="/events/${event.id}"><c:out value="${event.name}"/></a></td>
+					<td><c:out value="${event.date}"/></td>
+					<td><c:out value="${event.location}"/></td>
+					<td><c:out value="${event.host}"/></td>
+					<td>
+						<span id="join" class="<c:if test="${!event.attendees.contains(user)}">d-none</c:if>"><a href="/events/${event.id}/join">Join</a></span>
+						<span id="joining" class="<c:if test="${event.attendees.contains(user)}">d-none</c:if>">Joining <a href="/events/${event.id}/unjoin">Cancel</a></span>
+						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Delete</a> <a href="/events/${event.id}/delete">Delete</a></c:if>
+					</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+		<h3>Here are some of the events in other states:</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date</th>
+					<th>Location</th>
+					<th>State</th>
+					<th>Host</th>
+					<th>Action/Status</th>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach items="${eventsOutOfState}" var="event">
+				<tr>
+					<td><a href="/events/${event.id}"><c:out value="${event.name}"/></a></td>
+					<td><c:out value="${event.date}"/></td>
+					<td><c:out value="${event.location}"/></td>
+					<td><c:out value="${event.state}"/></td>
+					<td><c:out value="${event.host}"/></td>
+					<td>
+						<span id="join" class="<c:if test="${!event.attendees.contains(user)}">d-none</c:if>"><a href="/events/${event.id}/join">Join</a></span>
+						<span id="joining" class="<c:if test="${event.attendees.contains(user)}">d-none</c:if>">Joining <a href="/events/${event.id}/unjoin">Cancel</a></span>
+						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Delete</a> <a href="/events/${event.id}/delete">Delete</a></c:if>
+					</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+		<h2>Create an Event</h2>
+		<form:form action="/events" method="post" modelAttribute="event">
+			<div class="form-group row">
+				<form:label path="name" class="col-sm-2 form-label">Name</form:label>
+				<div class="col-sm-10">
+					<form:input path="name" class="form-control"/>
+					<form:errors path="name"/>
+				</div>
+			</div>
+			<div class="form-group row">
+				<form:label path="date" class="col-sm-2 form-label">Date</form:label>
+				<div class="col-sm-10">
+					<form:input path="date" class="form-control" type="date"/>
+					<form:errors path="date"/>
+				</div>
+			</div>
+			<div class="form-group row">
+				<form:label path="location" class="col-sm-2 form-label">Location</form:label>
+				<div class="col-sm-8">
+					<form:input path="location" class="form-control"/>
+					<form:errors path="location"/>
+				</div>
+				<div class="col-sm-2">
+					<form:input path="state" class="form-control"/>
+					<form:label path="state" class="d-none"/>
+				</div>
+			</div>
+			<div class="row text-right" style="padding: 10px">
+				<input type="submit" value="Submit" class="btn btn-primary"/>
+			</div>
+		</form:form>
+	</div>
 </body>
 </html>

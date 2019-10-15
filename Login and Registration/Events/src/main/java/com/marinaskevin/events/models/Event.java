@@ -32,6 +32,8 @@ public class Event {
 	private Date date;
 	@Size(min=1,message="Location is required")
 	private String location;
+	@Size(min=1,message="State is required")
+	private String state;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -53,10 +55,11 @@ public class Event {
 
 	}
 
-	public Event(String name, Date date, String location, User host) {
+	public Event(String name, Date date, String location, String state, User host) {
 		this.name = name;
 		this.date = date;
 		this.location = location;
+		this.state = state;
 		this.host = host;
 	}
 
@@ -90,6 +93,14 @@ public class Event {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public Date getCreatedAt() {
