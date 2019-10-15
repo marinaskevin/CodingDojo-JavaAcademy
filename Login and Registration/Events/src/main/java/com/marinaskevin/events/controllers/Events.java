@@ -1,5 +1,7 @@
 package com.marinaskevin.events.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -41,6 +43,13 @@ public class Events {
 		if(session.getAttribute("userId") == null) {
 			return "redirect:/";
 		}
+		User user = eventService.findUserById((Long)session.getAttribute("userId"));
+		List<Event> eventsInState = eventService.findEventsInState((String)user.getState());
+		List<Event> eventsNotInState = eventService.findEventsNotInState((String)user.getState());
+		model.addAttribute("user", user);
+		model.addAttribute("eventsInState", eventsInState);
+		model.addAttribute("eventsNonInState", eventsNotInState);
+		model.addAttribute("event", new Event());
 		return "events/events.jsp";
 	}
 	

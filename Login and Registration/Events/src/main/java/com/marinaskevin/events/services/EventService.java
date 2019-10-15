@@ -1,5 +1,6 @@
 package com.marinaskevin.events.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -29,23 +30,28 @@ public class EventService {
 		user.setPassword(BCrypt.hashpw(user.getPassword(),BCrypt.gensalt()));
 		return userRepository.save(user);
 	}
-
-	public Event createEvent(Event event) {
-		return eventRepository.save(event);
-	}
-
-	public Comment createComment(Comment comment) {
-		return commentRepository.save(comment);
-	}
 	
-	public Event updateEvent(Event event) {
-		return eventRepository.save(event);
+	public User findUserById(Long id) {
+		Optional<User> user = userRepository.findById(id);
+		if(user.isPresent()) {
+			return user.get();
+		} else {
+			return null;
+		}
 	}
 	
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 	
+	public Event createEvent(Event event) {
+		return eventRepository.save(event);
+	}
+
+	public Event updateEvent(Event event) {
+		return eventRepository.save(event);
+	}
+
 	public Event findEventById(Long id) {
 		Optional<Event> e = eventRepository.findById(id);
 		if(e.isPresent()) {
@@ -53,6 +59,18 @@ public class EventService {
 		} else {
 			return null;
 		}
+	}
+	
+	public List<Event> findEventsInState(String state) {
+		return eventRepository.findEventsInState(state);
+	}
+	
+	public List<Event> findEventsNotInState(String state) {
+		return eventRepository.findEventsNotInState(state);
+	}
+	
+	public Comment createComment(Comment comment) {
+		return commentRepository.save(comment);
 	}
 	
     public boolean authenticateUser(String email, String password) {
