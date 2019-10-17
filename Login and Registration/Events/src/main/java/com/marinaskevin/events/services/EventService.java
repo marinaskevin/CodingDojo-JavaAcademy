@@ -52,6 +52,13 @@ public class EventService {
 		return eventRepository.save(event);
 	}
 
+	public void deleteEvent(Long id) {
+		Optional<Event> e = eventRepository.findById(id);
+		if(e.isPresent()) {
+			eventRepository.delete(e.get());
+		}
+	}
+
 	public Event findEventById(Long id) {
 		Optional<Event> e = eventRepository.findById(id);
 		if(e.isPresent()) {

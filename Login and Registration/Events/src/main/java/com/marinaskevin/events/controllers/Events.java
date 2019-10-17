@@ -69,6 +69,10 @@ public class Events {
 			return "redirect:/";
 		}
 		Event event = eventService.findEventById(id);
+		System.out.println(event.getHost().getId()+" or "+session.getAttribute("userId"));
+		if(!event.getHost().getId().equals(session.getAttribute("userId"))) {
+			return "redirect:/events";
+		}
 		model.addAttribute("event",event);		
 		return "events/edit_event.jsp";
 	}
@@ -113,12 +117,21 @@ public class Events {
 	}
 	
 	@RequestMapping(value="/events/{id}", method=RequestMethod.PUT)
-	public String updateEvent(@Valid @ModelAttribute("event") Event event, @PathVariable("id") Long id, BindingResult result) {
+	public String updateEvent(@Valid @ModelAttribute("event") Event event, @PathVariable("id") Long id, BindingResult result, HttpSession session) {
 		if(result.hasErrors()) {
-			return "redirect:/events/{id}/edit";
+			return "redirect:/events/"+id+"/edit";
 		} else {
+			User user = eventService.findUserById((Long)session.getAttribute("userId"));
+			event.setHost(user);
+			event.setId(id);
 			eventService.updateEvent(event);
 		}
 		return "redirect:/events/"+id;
+	}
+
+	@RequestMapping(value="/events/{id}", method=RequestMethod.DELETE)
+	public String deleteEvent(@PathVariable Long id) {
+		eventService.deleteEvent(id);
+		return "redirect:/events";
 	}
 }

@@ -19,7 +19,7 @@
 	<div class="jumbotron container">
 		<h1><c:out value="${event.name}"/></h1>
 		<h3>Edit Event</h3>
-		<form:form action="events" method="post" modelAttribute="event">
+		<form:form action="/events/${event.id}" method="post" modelAttribute="event">
 			<input type="hidden" name="_method" value="put">
 			<div class="form-group row">
 				<form:label path="name" class="col-sm-2 form-label">Name</form:label>

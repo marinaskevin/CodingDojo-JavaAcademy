@@ -3,6 +3,7 @@ package com.marinaskevin.events.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,6 +35,7 @@ public class Event {
 	private String location;
 	@Size(min=1,message="State is required")
 	private String state;
+	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
