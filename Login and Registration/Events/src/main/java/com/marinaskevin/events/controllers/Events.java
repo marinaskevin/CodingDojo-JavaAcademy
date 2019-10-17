@@ -58,6 +58,8 @@ public class Events {
 		if(session.getAttribute("userId") == null) {
 			return "redirect:/";
 		}
+		Event event = eventService.findEventById(id);
+		model.addAttribute("event",event);
 		return "events/show_event.jsp";
 	}
 	
@@ -65,7 +67,9 @@ public class Events {
 	public String editEvent(@PathVariable("id") Long id, Model model, HttpSession session) {
 		if(session.getAttribute("userId") == null) {
 			return "redirect:/";
-		}		
+		}
+		Event event = eventService.findEventById(id);
+		model.addAttribute("event",event);		
 		return "events/edit_event.jsp";
 	}
 	
