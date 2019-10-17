@@ -35,9 +35,14 @@
 					<td><c:out value="${event.location}"/></td>
 					<td><c:out value="${event.host.firstName} ${event.host.lastName}"/></td>
 					<td>
-						<span id="join" class="<c:if test="${event.attendees.contains(user)}">hidden</c:if>"><a href="/events/${event.id}/join">Join</a></span>
-						<span id="joining" class="<c:if test="${!event.attendees.contains(user)}">hidden</c:if>">Joining <a href="/events/${event.id}/unjoin">Cancel</a></span>
-						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Edit</a> <a href="/events/${event.id}/delete">Delete</a></c:if>
+						<form action="/events/${event.id}" method="post" style="padding: 0px">
+						<button type="button" id="join" class="btn-link <c:if test="${event.attendees.contains(user)}">hidden</c:if>">Join</button>
+						<span id="joining" class="<c:if test="${!event.attendees.contains(user)}">hidden</c:if>">Joining <a class="btn-link" href="/events/${event.id}/unjoin"><button type="button" class="btn-link">Cancel</button></a></span>
+						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Edit</a>
+							<input type="hidden" name="_method" value="delete">
+							<button type="submit" class="btn-link">Delete</button>
+						</c:if>
+						</form>
 					</td>
 				</tr>
 			</c:forEach>
@@ -64,9 +69,14 @@
 					<td><c:out value="${event.state}"/></td>
 					<td><c:out value="${event.host.firstName} ${event.host.lastName}"/></td>
 					<td>
-						<span id="join" class="<c:if test="${event.attendees.contains(user)}">hidden</c:if>"><a href="/events/${event.id}/join">Join</a></span>
-						<span id="joining" class="<c:if test="${!event.attendees.contains(user)}">hidden</c:if>">Joining <a href="/events/${event.id}/unjoin">Cancel</a></span>
-						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Edit</a> <a href="/events/${event.id}/delete">Delete</a></c:if>
+						<form action="/events/${event.id}" method="post">
+						<button type="button" id="join" class="btn-link <c:if test="${event.attendees.contains(user)}">hidden</c:if>">Join</button>
+						<span id="joining" class="<c:if test="${!event.attendees.contains(user)}">hidden</c:if>">Joining <a class="btn-link" href="/events/${event.id}/unjoin"><button type="button" class="btn-link">Cancel</button></a></span>
+						<c:if test="${event.host.equals(user)}"><a href="/events/${event.id}/edit">Edit</a>
+							<input type="hidden" name="_method" value="delete">
+							<button type="submit" class="btn-link">Delete</button>
+						</c:if>
+						</form>
 					</td>
 				</tr>
 			</c:forEach>
