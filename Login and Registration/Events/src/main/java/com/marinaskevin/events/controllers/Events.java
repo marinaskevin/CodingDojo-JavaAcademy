@@ -128,6 +128,24 @@ public class Events {
 		}
 		return "redirect:/events/"+id;
 	}
+	
+	@RequestMapping(value="/events/{id}/join", method=RequestMethod.PUT)
+	public String joinEvent(@PathVariable("id") Long id, HttpSession session) {
+		User user = eventService.findUserById((Long)session.getAttribute("userId"));
+		Event event = eventService.findEventById(id);
+		event.getAttendees().add(user);
+		eventService.updateEvent(event);
+		return "redirect:/events/"+id;
+	}
+
+	@RequestMapping(value="/events/{id}/unjoin", method=RequestMethod.PUT)
+	public String unjoinEvent(@PathVariable("id") Long id, HttpSession session) {
+		User user = eventService.findUserById((Long)session.getAttribute("userId"));
+		Event event = eventService.findEventById(id);
+		event.getAttendees().remove(user);
+		eventService.updateEvent(event);
+		return "redirect:/events/"+id;
+	}
 
 	@RequestMapping(value="/events/{id}", method=RequestMethod.DELETE)
 	public String deleteEvent(@PathVariable Long id) {
