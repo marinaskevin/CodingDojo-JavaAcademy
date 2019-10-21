@@ -8,13 +8,13 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Events</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 	<div class="jumbotron container">
 		<div class="row" style="padding: 10px">
-			<div class="sm-col-6"><h1>Welcome, <c:out value="${user.firstName} ${user.lastName}"/></h1></div>
-			<div class="sm-col-6 text-right"><a href="/logout" class="btn btn-primary">Logout</a></div>
+			<div class="col-sm-6"><h1>Welcome, <c:out value="${user.firstName} ${user.lastName}"/></h1></div>
+			<div class="col-sm-6 text-right"><a href="/logout" class="btn btn-primary">Logout</a></div>
 		</div>
 		<h3>Here are some of the events in your state:</h3>
 		<table class="table">
@@ -35,19 +35,19 @@
 					<td><c:out value="${event.location}"/></td>
 					<td><c:out value="${event.host.firstName} ${event.host.lastName}"/></td>
 					<td>
-						<form id="join" action="/events/${event.id}/join" method="post" class="<c:if test="${event.attendees.contains(user)}">hidden</c:if>">
+						<form id="join" action="/events/${event.id}/join" method="post" class="<c:choose><c:when test="${!event.attendees.contains(user)}">d-inline</c:when><c:otherwise>d-none</c:otherwise></c:choose>">
 							<input type="hidden" name="_method" value="put">
-							<button type="submit" class="btn-link col-xs-2">Join</button>
+							<button type="submit" class="btn btn-sm btn-success">Join</button>
 						</form>
-						<form id="joining" action="/events/${event.id}/unjoin" method="post" class="<c:if test="${!event.attendees.contains(user)}">hidden</c:if>">
-							Joining
+						<form id="joining" action="/events/${event.id}/unjoin" method="post" class="<c:choose><c:when test="${event.attendees.contains(user)}">d-inline</c:when><c:otherwise>d-none</c:otherwise></c:choose>">
+							<button class="btn btn-sm btn-basic">Joining</button>
 							<input type="hidden" name="_method" value="put">
-							<button type="submit" class="btn-link col-xs-2">Cancel</button>
+							<button type="submit" class="btn btn-sm btn-warning">Cancel</button>
 						</form>
-						<form action="/events/${event.id}" method="post" style="padding: 0px" class="<c:if test="${!event.host.equals(user)}">hidden</c:if>">
-							<a href="/events/${event.id}/edit"><button type="button" class="btn-link col-xs-2">Edit</button></a>
+						<form action="/events/${event.id}" method="post" class="<c:choose><c:when test="${event.host.equals(user)}">d-inline</c:when><c:otherwise>d-none</c:otherwise></c:choose>">
+							<a href="/events/${event.id}/edit"><button type="button" class="btn btn-sm btn-info">Edit</button></a>
 							<input type="hidden" name="_method" value="delete">
-							<button type="submit" class="btn-link col-xs-2">Delete</button>
+							<button type="submit" class="btn btn-sm btn-danger">Delete</button>
 						</form>
 					</td>
 				</tr>
@@ -75,19 +75,19 @@
 					<td><c:out value="${event.state}"/></td>
 					<td><c:out value="${event.host.firstName} ${event.host.lastName}"/></td>
 					<td>
-						<form id="join" action="/events/${event.id}/join" method="post" class="<c:if test="${event.attendees.contains(user)}">hidden</c:if>">
+						<form id="join" action="/events/${event.id}/join" method="post" class="<c:choose><c:when test="${!event.attendees.contains(user)}">d-inline</c:when><c:otherwise>d-none</c:otherwise></c:choose>">
 							<input type="hidden" name="_method" value="put">
-							<button type="submit" class="btn-link">Join</button>
+							<button type="submit" class="btn btn-sm btn-success">Join</button>
 						</form>
-						<form id="joining" action="/events/${event.id}/unjoin" method="post" class="<c:if test="${!event.attendees.contains(user)}">hidden</c:if>">
-							Joining
+						<form id="joining" action="/events/${event.id}/unjoin" method="post" class="<c:choose><c:when test="${event.attendees.contains(user)}">d-inline</c:when><c:otherwise>d-none</c:otherwise></c:choose>">
+							<button class="btn btn-sm btn-basic">Joining</button>
 							<input type="hidden" name="_method" value="put">
-							<button type="submit" class="btn-link">Cancel</button>
+							<button type="submit" class="btn btn-sm btn-warning">Cancel</button>
 						</form>
-						<form action="/events/${event.id}" method="post" style="padding: 0px" class="<c:if test="${!event.host.equals(user)}">hidden</c:if>">
-							<a href="/events/${event.id}/edit">Edit</a>
+						<form action="/events/${event.id}" method="post" class="<c:choose><c:when test="${event.host.equals(user)}">d-inline</c:when><c:otherwise>d-none</c:otherwise></c:choose>">
+							<a href="/events/${event.id}/edit"><button type="button" class="btn btn-sm btn-info">Edit</button></a>
 							<input type="hidden" name="_method" value="delete">
-							<button type="submit" class="btn-link">Delete</button>
+							<button type="submit" class="btn btn-sm btn-danger">Delete</button>
 						</form>
 					</td>
 				</tr>
