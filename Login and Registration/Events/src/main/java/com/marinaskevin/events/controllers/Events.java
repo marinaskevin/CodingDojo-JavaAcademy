@@ -135,7 +135,7 @@ public class Events {
 		Event event = eventService.findEventById(id);
 		event.getAttendees().add(user);
 		eventService.updateEvent(event);
-		return "redirect:/events/"+id;
+		return "redirect:/events/";
 	}
 
 	@RequestMapping(value="/events/{id}/unjoin", method=RequestMethod.PUT)
@@ -144,7 +144,7 @@ public class Events {
 		Event event = eventService.findEventById(id);
 		event.getAttendees().remove(user);
 		eventService.updateEvent(event);
-		return "redirect:/events/"+id;
+		return "redirect:/events/";
 	}
 
 	@RequestMapping(value="/events/{id}", method=RequestMethod.DELETE)
