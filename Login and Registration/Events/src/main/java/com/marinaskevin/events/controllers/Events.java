@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.marinaskevin.events.models.Comment;
 import com.marinaskevin.events.models.Event;
 import com.marinaskevin.events.models.User;
 import com.marinaskevin.events.services.EventService;
@@ -60,6 +61,7 @@ public class Events {
 		}
 		Event event = eventService.findEventById(id);
 		model.addAttribute("event",event);
+		model.addAttribute("comment", new Comment());
 		return "events/show_event.jsp";
 	}
 	
@@ -69,7 +71,6 @@ public class Events {
 			return "redirect:/";
 		}
 		Event event = eventService.findEventById(id);
-		System.out.println(event.getHost().getId()+" or "+session.getAttribute("userId"));
 		if(!event.getHost().getId().equals(session.getAttribute("userId"))) {
 			return "redirect:/events";
 		}
@@ -108,24 +109,35 @@ public class Events {
 	public String newEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, HttpSession session) {
 		if(result.hasErrors()) {
 			return "redirect:/events";
-		} else {
-			User user = eventService.findUserById((Long)session.getAttribute("userId"));
-			event.setHost(user);
-			eventService.createEvent(event);
-			return "redirect:/events";
 		}
+		User user = eventService.findUserById((Long)session.getAttribute("userId"));
+		event.setHost(user);
+		eventService.createEvent(event);
+		return "redirect:/events";
+	}
+
+	@RequestMapping(value="/events/{id}/comments", method=RequestMethod.POST)
+	public String newComment(@Valid @ModelAttribute("comment") Comment comment, BindingResult result, @PathVariable("id") Long id, HttpSession session) {
+		if(result.hasErrors()) {
+			return "redirect:/events/"+id;
+		}
+		User user = eventService.findUserById((Long)session.getAttribute("userId"));
+		Event event = eventService.findEventById(id);
+		comment.setUser(user);
+		comment.setEvent(event);
+		eventService.createComment(comment);
+		return "redirect:/events/"+id;
 	}
 	
 	@RequestMapping(value="/events/{id}", method=RequestMethod.PUT)
 	public String updateEvent(@Valid @ModelAttribute("event") Event event, @PathVariable("id") Long id, BindingResult result, HttpSession session) {
 		if(result.hasErrors()) {
 			return "redirect:/events/"+id+"/edit";
-		} else {
-			User user = eventService.findUserById((Long)session.getAttribute("userId"));
-			event.setHost(user);
-			event.setId(id);
-			eventService.updateEvent(event);
 		}
+		User user = eventService.findUserById((Long)session.getAttribute("userId"));
+		event.setHost(user);
+		event.setId(id);
+		eventService.updateEvent(event);
 		return "redirect:/events/"+id;
 	}
 	

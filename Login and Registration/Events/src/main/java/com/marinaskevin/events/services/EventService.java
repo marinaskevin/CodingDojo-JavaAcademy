@@ -49,7 +49,7 @@ public class EventService {
 	}
 
 	public Event updateEvent(Event event) {
-		if(event.getAttendees() != null && event.getAttendees().size() == 0) event.setAttendees(this.findEventById(event.getId()).getAttendees());
+		event.setAttendees(this.findEventById(event.getId()).getAttendees());
 		return eventRepository.save(event);
 	}
 
