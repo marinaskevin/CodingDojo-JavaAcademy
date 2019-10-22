@@ -122,7 +122,7 @@
 					<form:errors path="state"/>
 				</div>
 			</div>
-			<div class="row text-right" style="padding: 10px">
+			<div class="text-right" style="padding: 10px">
 				<input type="submit" value="Submit" class="btn btn-primary"/>
 			</div>
 		</form:form>
